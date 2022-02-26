@@ -14,9 +14,7 @@ namespace WinFormsApp1
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Form form2 = new Form2();
-            Application.Run(form2);
-
+            Application.Run(new Form1());
         }
     }
 }

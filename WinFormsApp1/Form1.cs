@@ -14,58 +14,42 @@ namespace WinFormsApp1
 {
     public partial class Form1 : Form
     {
+        private const string Path = "D:\\Programs\\Chat\\chat.txt"; //   "T:\\903Б\\lab11Tyabin\\users.txt"    "D:\\Programs\\Chat\\chat.txt"
         public Form1()
         {
             InitializeComponent();
-            richTextBox1.Text = "Welcome to the club";
+            chatBox.Text = "Welcome to the club";
+            new Form2(this).ShowDialog();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void LoadChatBt_Click(object sender, EventArgs e)
         {
-            richTextBox1.Text = null;
-            richTextBox1.Text = "Welcome to the club";
-            string line;
-            StreamReader sr = new StreamReader("T:\\903Б\\lab11Tyabin\\chat.txt");
-            while (1 == 1)
-            {
-                line = sr.ReadLine();
-                if (line == null) break;
-                richTextBox1.Text = richTextBox1.Text + "\n" + line;
-            }
-            sr.Close();
+            chatBox.Text = String.Join('\n', File.ReadAllLines(Path));
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void SendMessageBt_Click(object sender, EventArgs e)
         {
-            //if (textBox1.Text!="Enter your name")
-            //{
-            //    StreamWriter sr1 = new StreamWriter("T:\\903Б\\lab11Tyabin\\chat.txt");
-            //    sr1.WriteLine(textBox1.Text + "::" + richTextBox2.Text);
-            //    sr1.Close();
-            //}
+            File.AppendAllText(Path,$"{usernameLabel.Text}: {messageBox.Text}\n");
         }
 
-        //private void textBox1_Enter(object sender, EventArgs e)
-        //{
-        //    textBox1.Text = null;
-        //}
-
-        //private void textBox1_Leave(object sender, EventArgs e)
-        //{
-        //    if (textBox1.Text == "") textBox1.Text = "Enter your name";
-        //    else if (textBox1.Text != "Enter your name") richTextBox2.ReadOnly = false;
-        //}
-
-        private void richTextBox2_Enter(object sender, EventArgs e)
+        private void MessageBox_Enter(object sender, EventArgs e)
         {
-            richTextBox2.Text = "";
+            messageBox.Text = "";
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void messageBox_Leave(object sender, EventArgs e)
         {
-            this.Close();
-            Form2 form2 = new Form2();
-            form2.Show();
+            if (messageBox.Text == "") messageBox.Text = "Enter your message";
+        }
+
+        private void LogoutBt_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void usernameLabel_Click(object sender, EventArgs e)
+        {
+            new Form2(this).ShowDialog();
         }
     }
 }
