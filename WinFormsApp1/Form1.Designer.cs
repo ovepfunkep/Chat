@@ -22,13 +22,14 @@ namespace WinFormsApp1
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.chatBox = new System.Windows.Forms.RichTextBox();
             this.loadChatBt = new System.Windows.Forms.Button();
             this.sendMessageBt = new System.Windows.Forms.Button();
             this.messageBox = new System.Windows.Forms.RichTextBox();
             this.usernameLabel = new System.Windows.Forms.Label();
-            this.logoutBt = new System.Windows.Forms.Button();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // chatBox
@@ -75,23 +76,18 @@ namespace WinFormsApp1
             // usernameLabel
             // 
             this.usernameLabel.AutoSize = true;
-            this.usernameLabel.Location = new System.Drawing.Point(486, 9);
+            this.usernameLabel.Location = new System.Drawing.Point(482, 9);
             this.usernameLabel.Name = "usernameLabel";
-            this.usernameLabel.Size = new System.Drawing.Size(59, 15);
+            this.usernameLabel.Size = new System.Drawing.Size(78, 15);
             this.usernameLabel.TabIndex = 5;
-            this.usernameLabel.Text = "username";
+            this.usernameLabel.Text = "press to login";
             this.usernameLabel.Click += new System.EventHandler(this.usernameLabel_Click);
             // 
-            // logoutBt
+            // timer1
             // 
-            this.logoutBt.Location = new System.Drawing.Point(551, 9);
-            this.logoutBt.Name = "logoutBt";
-            this.logoutBt.Size = new System.Drawing.Size(21, 15);
-            this.logoutBt.TabIndex = 6;
-            this.logoutBt.Text = "logoutBt";
-            this.logoutBt.UseVisualStyleBackColor = true;
-            this.logoutBt.Visible = false;
-            this.logoutBt.Click += new System.EventHandler(this.LogoutBt_Click);
+            this.timer1.Enabled = true;
+            this.timer1.Interval = 500;
+            this.timer1.Tick += new System.EventHandler(this.LoadChatBt_Click);
             // 
             // Form1
             // 
@@ -99,7 +95,6 @@ namespace WinFormsApp1
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.ClientSize = new System.Drawing.Size(584, 661);
-            this.Controls.Add(this.logoutBt);
             this.Controls.Add(this.usernameLabel);
             this.Controls.Add(this.messageBox);
             this.Controls.Add(this.sendMessageBt);
@@ -115,10 +110,10 @@ namespace WinFormsApp1
         #endregion
         private System.Windows.Forms.RichTextBox chatBox;
         public System.Windows.Forms.Label usernameLabel;
-        public System.Windows.Forms.Button logoutBt;
         public System.Windows.Forms.Button loadChatBt;
         public System.Windows.Forms.RichTextBox messageBox;
         public System.Windows.Forms.Button sendMessageBt;
+        private System.Windows.Forms.Timer timer1;
     }
 }
 
