@@ -42,11 +42,6 @@ namespace WinFormsApp1
             if (messageBox.Text == "") messageBox.Text = "Enter your message";
         }
 
-        private void LogoutBt_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void usernameLabel_Click(object sender, EventArgs e)
         {
             new Form2(this).ShowDialog();
