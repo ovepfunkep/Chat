@@ -14,7 +14,7 @@ namespace WinFormsApp1
     public partial class Form2 : Form
     {
        //   "T:\\903Б\\lab11Tyabin\\users.txt"    "D:\\Programs\\Chat\\users.txt"
-        private const string pathUsers = "D:\\Programs\\Chat\\users.txt";
+        private const string pathUsers = "T:\\903Б\\lab11Tyabin\\users.txt";
         private const bool T = true;
         private const bool F = false;
 

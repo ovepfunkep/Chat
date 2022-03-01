@@ -30,6 +30,7 @@ namespace WinFormsApp1
             this.messageBox = new System.Windows.Forms.RichTextBox();
             this.usernameLabel = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // chatBox
@@ -65,12 +66,14 @@ namespace WinFormsApp1
             // messageBox
             // 
             this.messageBox.Location = new System.Drawing.Point(123, 278);
+            this.messageBox.Multiline = false;
             this.messageBox.Name = "messageBox";
             this.messageBox.Size = new System.Drawing.Size(338, 57);
             this.messageBox.TabIndex = 4;
             this.messageBox.Text = "Enter your message";
             this.messageBox.Visible = false;
             this.messageBox.Enter += new System.EventHandler(this.MessageBox_Enter);
+            this.messageBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.messageBox_KeyPress);
             this.messageBox.Leave += new System.EventHandler(this.messageBox_Leave);
             // 
             // usernameLabel
@@ -89,12 +92,22 @@ namespace WinFormsApp1
             this.timer1.Interval = 500;
             this.timer1.Tick += new System.EventHandler(this.LoadChatBt_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(69, 29);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(38, 15);
+            this.label1.TabIndex = 6;
+            this.label1.Text = "label1";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.ClientSize = new System.Drawing.Size(584, 661);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.usernameLabel);
             this.Controls.Add(this.messageBox);
             this.Controls.Add(this.sendMessageBt);
@@ -114,6 +127,7 @@ namespace WinFormsApp1
         public System.Windows.Forms.RichTextBox messageBox;
         public System.Windows.Forms.Button sendMessageBt;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Label label1;
     }
 }
 

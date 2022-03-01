@@ -14,7 +14,7 @@ namespace WinFormsApp1
 {
     public partial class Form1 : Form
     {
-        private const string Path = "D:\\Programs\\Chat\\chat.txt"; //   "T:\\903Б\\lab11Tyabin\\users.txt"    "D:\\Programs\\Chat\\chat.txt"
+        private const string Path = "T:\\903Б\\lab11Tyabin\\chat.txt"; //   "T:\\903Б\\lab11Tyabin\\users.txt"    "D:\\Programs\\Chat\\chat.txt"
         public Form1()
         {
             InitializeComponent();
@@ -45,6 +45,12 @@ namespace WinFormsApp1
         private void usernameLabel_Click(object sender, EventArgs e)
         {
             new Form2(this).ShowDialog();
+        }
+
+        private void messageBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == Convert.ToChar(Keys.Enter))
+                SendMessageBt_Click(this, EventArgs.Empty);
         }
     }
 }
