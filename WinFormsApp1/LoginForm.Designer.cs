@@ -1,7 +1,7 @@
 ﻿
 namespace WinFormsApp1
 {
-    partial class Form2
+    partial class LoginForm
     {
         /// <summary>
         /// Required designer variable.
@@ -29,28 +29,22 @@ namespace WinFormsApp1
         /// </summary>
         private void InitializeComponent()
         {
-            this.welcomeLabel = new System.Windows.Forms.Label();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LoginForm));
             this.enterLoginBox = new System.Windows.Forms.TextBox();
             this.enterPasswordBox = new System.Windows.Forms.TextBox();
             this.enterBt = new System.Windows.Forms.Button();
             this.regBt = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
+            this.WelcomeLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
-            // 
-            // welcomeLabel
-            // 
-            this.welcomeLabel.AutoSize = true;
-            this.welcomeLabel.Location = new System.Drawing.Point(207, 44);
-            this.welcomeLabel.Name = "welcomeLabel";
-            this.welcomeLabel.Size = new System.Drawing.Size(57, 15);
-            this.welcomeLabel.TabIndex = 0;
-            this.welcomeLabel.Text = "Welcome";
             // 
             // enterLoginBox
             // 
-            this.enterLoginBox.Location = new System.Drawing.Point(143, 80);
+            this.enterLoginBox.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.enterLoginBox.Location = new System.Drawing.Point(209, 164);
+            this.enterLoginBox.Multiline = true;
             this.enterLoginBox.Name = "enterLoginBox";
-            this.enterLoginBox.Size = new System.Drawing.Size(204, 23);
+            this.enterLoginBox.Size = new System.Drawing.Size(219, 34);
             this.enterLoginBox.TabIndex = 1;
             this.enterLoginBox.Text = "Enter login";
             this.enterLoginBox.Enter += new System.EventHandler(this.EnterLoginBox_Enter);
@@ -58,10 +52,12 @@ namespace WinFormsApp1
             // 
             // enterPasswordBox
             // 
-            this.enterPasswordBox.Location = new System.Drawing.Point(143, 118);
+            this.enterPasswordBox.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.enterPasswordBox.Location = new System.Drawing.Point(210, 205);
+            this.enterPasswordBox.Multiline = true;
             this.enterPasswordBox.Name = "enterPasswordBox";
             this.enterPasswordBox.PasswordChar = '*';
-            this.enterPasswordBox.Size = new System.Drawing.Size(204, 23);
+            this.enterPasswordBox.Size = new System.Drawing.Size(218, 34);
             this.enterPasswordBox.TabIndex = 2;
             this.enterPasswordBox.Text = "Enter password";
             this.enterPasswordBox.Enter += new System.EventHandler(this.EnterPasswordBox_Enter);
@@ -69,45 +65,65 @@ namespace WinFormsApp1
             // 
             // enterBt
             // 
-            this.enterBt.Location = new System.Drawing.Point(143, 162);
+            this.enterBt.BackColor = System.Drawing.SystemColors.Control;
+            this.enterBt.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("enterBt.BackgroundImage")));
+            this.enterBt.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.enterBt.FlatAppearance.BorderSize = 0;
+            this.enterBt.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.enterBt.Location = new System.Drawing.Point(159, 278);
             this.enterBt.Name = "enterBt";
-            this.enterBt.Size = new System.Drawing.Size(75, 23);
+            this.enterBt.Size = new System.Drawing.Size(151, 30);
             this.enterBt.TabIndex = 3;
-            this.enterBt.Text = "Enter";
-            this.enterBt.UseVisualStyleBackColor = true;
+            this.enterBt.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.enterBt.UseVisualStyleBackColor = false;
             this.enterBt.Click += new System.EventHandler(this.EnterBt_Click);
             // 
             // regBt
             // 
-            this.regBt.Location = new System.Drawing.Point(272, 162);
+            this.regBt.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("regBt.BackgroundImage")));
+            this.regBt.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.regBt.FlatAppearance.BorderSize = 0;
+            this.regBt.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.regBt.Location = new System.Drawing.Point(336, 278);
             this.regBt.Name = "regBt";
-            this.regBt.Size = new System.Drawing.Size(75, 23);
+            this.regBt.Size = new System.Drawing.Size(150, 30);
             this.regBt.TabIndex = 4;
-            this.regBt.Text = "Register";
+            this.regBt.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.regBt.UseVisualStyleBackColor = true;
             this.regBt.Click += new System.EventHandler(this.RegBt_Click);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(289, 188);
+            this.label2.Location = new System.Drawing.Point(354, 274);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(0, 15);
             this.label2.TabIndex = 5;
             // 
-            // Form2
+            // WelcomeLabel
+            // 
+            this.WelcomeLabel.AutoSize = true;
+            this.WelcomeLabel.Location = new System.Drawing.Point(296, 311);
+            this.WelcomeLabel.Name = "WelcomeLabel";
+            this.WelcomeLabel.Size = new System.Drawing.Size(55, 15);
+            this.WelcomeLabel.TabIndex = 6;
+            this.WelcomeLabel.Text = "welcome";
+            this.WelcomeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // LoginForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(518, 235);
+            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
+            this.ClientSize = new System.Drawing.Size(622, 405);
+            this.Controls.Add(this.WelcomeLabel);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.regBt);
             this.Controls.Add(this.enterBt);
             this.Controls.Add(this.enterPasswordBox);
             this.Controls.Add(this.enterLoginBox);
-            this.Controls.Add(this.welcomeLabel);
-            this.Name = "Form2";
-            this.Text = "Form2";
+            this.Name = "LoginForm";
+            this.Text = "MyChat login";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form2_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -115,12 +131,11 @@ namespace WinFormsApp1
         }
 
         #endregion
-
-        private System.Windows.Forms.Label welcomeLabel;
         private System.Windows.Forms.TextBox enterLoginBox;
         private System.Windows.Forms.TextBox enterPasswordBox;
         private System.Windows.Forms.Button enterBt;
         private System.Windows.Forms.Button regBt;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label WelcomeLabel;
     }
 }

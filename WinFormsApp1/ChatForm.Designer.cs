@@ -1,7 +1,7 @@
 ﻿
 namespace WinFormsApp1
 {
-    partial class Form1
+    partial class ChatForm
     {
 
         private System.ComponentModel.IContainer components = null;
@@ -23,68 +23,68 @@ namespace WinFormsApp1
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ChatForm));
             this.chatBox = new System.Windows.Forms.RichTextBox();
             this.loadChatBt = new System.Windows.Forms.Button();
             this.sendMessageBt = new System.Windows.Forms.Button();
             this.messageBox = new System.Windows.Forms.RichTextBox();
-            this.usernameLabel = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.label1 = new System.Windows.Forms.Label();
+            this.UsernameTextBox = new System.Windows.Forms.TextBox();
+            this.logoutButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // chatBox
             // 
-            this.chatBox.Location = new System.Drawing.Point(123, 102);
+            this.chatBox.BackColor = System.Drawing.SystemColors.Window;
+            this.chatBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.chatBox.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.chatBox.Location = new System.Drawing.Point(58, 66);
             this.chatBox.Name = "chatBox";
             this.chatBox.ReadOnly = true;
-            this.chatBox.Size = new System.Drawing.Size(338, 180);
+            this.chatBox.Size = new System.Drawing.Size(440, 499);
             this.chatBox.TabIndex = 1;
             this.chatBox.Text = "";
             // 
             // loadChatBt
             // 
-            this.loadChatBt.Location = new System.Drawing.Point(319, 55);
+            this.loadChatBt.BackColor = System.Drawing.Color.Transparent;
+            this.loadChatBt.FlatAppearance.BorderSize = 0;
+            this.loadChatBt.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.loadChatBt.Location = new System.Drawing.Point(420, 579);
             this.loadChatBt.Name = "loadChatBt";
-            this.loadChatBt.Size = new System.Drawing.Size(75, 23);
+            this.loadChatBt.Size = new System.Drawing.Size(41, 33);
             this.loadChatBt.TabIndex = 2;
-            this.loadChatBt.Text = "button1";
-            this.loadChatBt.UseVisualStyleBackColor = true;
+            this.loadChatBt.UseVisualStyleBackColor = false;
             this.loadChatBt.Click += new System.EventHandler(this.LoadChatBt_Click);
             // 
             // sendMessageBt
             // 
-            this.sendMessageBt.Location = new System.Drawing.Point(254, 341);
+            this.sendMessageBt.BackColor = System.Drawing.Color.Transparent;
+            this.sendMessageBt.FlatAppearance.BorderSize = 0;
+            this.sendMessageBt.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.sendMessageBt.Location = new System.Drawing.Point(467, 579);
             this.sendMessageBt.Name = "sendMessageBt";
-            this.sendMessageBt.Size = new System.Drawing.Size(75, 23);
+            this.sendMessageBt.Size = new System.Drawing.Size(32, 33);
             this.sendMessageBt.TabIndex = 3;
-            this.sendMessageBt.Text = "button2";
-            this.sendMessageBt.UseVisualStyleBackColor = true;
+            this.sendMessageBt.UseVisualStyleBackColor = false;
             this.sendMessageBt.Visible = false;
             this.sendMessageBt.Click += new System.EventHandler(this.SendMessageBt_Click);
             // 
             // messageBox
             // 
-            this.messageBox.Location = new System.Drawing.Point(123, 278);
+            this.messageBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.messageBox.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.messageBox.Location = new System.Drawing.Point(69, 579);
             this.messageBox.Multiline = false;
             this.messageBox.Name = "messageBox";
-            this.messageBox.Size = new System.Drawing.Size(338, 57);
+            this.messageBox.Size = new System.Drawing.Size(345, 32);
             this.messageBox.TabIndex = 4;
             this.messageBox.Text = "Enter your message";
             this.messageBox.Visible = false;
             this.messageBox.Enter += new System.EventHandler(this.MessageBox_Enter);
             this.messageBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.messageBox_KeyPress);
             this.messageBox.Leave += new System.EventHandler(this.messageBox_Leave);
-            // 
-            // usernameLabel
-            // 
-            this.usernameLabel.AutoSize = true;
-            this.usernameLabel.Location = new System.Drawing.Point(482, 9);
-            this.usernameLabel.Name = "usernameLabel";
-            this.usernameLabel.Size = new System.Drawing.Size(78, 15);
-            this.usernameLabel.TabIndex = 5;
-            this.usernameLabel.Text = "press to login";
-            this.usernameLabel.Click += new System.EventHandler(this.usernameLabel_Click);
             // 
             // timer1
             // 
@@ -95,25 +95,49 @@ namespace WinFormsApp1
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(69, 29);
+            this.label1.Location = new System.Drawing.Point(319, 35);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(38, 15);
             this.label1.TabIndex = 6;
             this.label1.Text = "label1";
             // 
-            // Form1
+            // UsernameTextBox
+            // 
+            this.UsernameTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.UsernameTextBox.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.UsernameTextBox.Location = new System.Drawing.Point(60, 23);
+            this.UsernameTextBox.Multiline = true;
+            this.UsernameTextBox.Name = "UsernameTextBox";
+            this.UsernameTextBox.ReadOnly = true;
+            this.UsernameTextBox.Size = new System.Drawing.Size(131, 24);
+            this.UsernameTextBox.TabIndex = 7;
+            // 
+            // logoutButton
+            // 
+            this.logoutButton.BackColor = System.Drawing.Color.Transparent;
+            this.logoutButton.FlatAppearance.BorderSize = 0;
+            this.logoutButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.logoutButton.Location = new System.Drawing.Point(189, 23);
+            this.logoutButton.Name = "logoutButton";
+            this.logoutButton.Size = new System.Drawing.Size(21, 24);
+            this.logoutButton.TabIndex = 8;
+            this.logoutButton.UseVisualStyleBackColor = false;
+            this.logoutButton.Click += new System.EventHandler(this.logoutButton_Click);
+            // 
+            // ChatForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.ClientSize = new System.Drawing.Size(584, 661);
+            this.Controls.Add(this.logoutButton);
+            this.Controls.Add(this.UsernameTextBox);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.usernameLabel);
             this.Controls.Add(this.messageBox);
             this.Controls.Add(this.sendMessageBt);
             this.Controls.Add(this.loadChatBt);
             this.Controls.Add(this.chatBox);
-            this.Name = "Form1";
+            this.Name = "ChatForm";
             this.Text = "Form1";
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -122,12 +146,13 @@ namespace WinFormsApp1
 
         #endregion
         private System.Windows.Forms.RichTextBox chatBox;
-        public System.Windows.Forms.Label usernameLabel;
         public System.Windows.Forms.Button loadChatBt;
         public System.Windows.Forms.RichTextBox messageBox;
         public System.Windows.Forms.Button sendMessageBt;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Label label1;
+        public System.Windows.Forms.TextBox UsernameTextBox;
+        private System.Windows.Forms.Button logoutButton;
     }
 }
 

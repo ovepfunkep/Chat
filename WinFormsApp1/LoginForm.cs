@@ -11,20 +11,20 @@ using System.IO;
 
 namespace WinFormsApp1
 {
-    public partial class Form2 : Form
+    public partial class LoginForm : Form
     {
-       //   "T:\\903Б\\lab11Tyabin\\users.txt"    "D:\\Programs\\Chat\\users.txt"
-        private const string pathUsers = "T:\\903Б\\lab11Tyabin\\users.txt";
+        //   "T:\\903Б\\ovepfunkep's hub\\users.txt"    "D:\\Programs\\Chat\\users.txt"
+        private const string pathUsers = "T:\\903Б\\ovepfunkep's hub\\users.txt";
         private const bool T = true;
         private const bool F = false;
 
-        public Form2(Form1 form)
+        public LoginForm(ChatForm form)
         {
             InitializeComponent();
             form1 = form;
         }
 
-        private Form1 form1;
+        private ChatForm form1;
 
         private void RegBt_Click(object sender, EventArgs e)
         {
@@ -37,26 +37,26 @@ namespace WinFormsApp1
                     File.AppendAllText(pathUsers, $"`{enterLoginBox.Text}\n{enterPasswordBox.Text}\n");
                     enterLoginBox.Text = "Enter login";
                     enterPasswordBox.Text = "Enter Password";
-                    welcomeLabel.Text = "Now enter login and password again";
+                    WelcomeLabel.Text = "Now enter login and password again";
                 }
-                else welcomeLabel.Text = "User already exists";
+                else WelcomeLabel.Text = "User already exists";
             }
-            else welcomeLabel.Text = "Try entering login and password.\n Both should be more than 3 symbols";
+            else WelcomeLabel.Text = "Try entering login and password.\n Both should be more than 3 symbols";
         }
 
         private void EnterBt_Click(object sender, EventArgs e)
         {
             var users = File.ReadAllLines(pathUsers);
             var i = Array.IndexOf(users,"`"+enterLoginBox.Text);
-            welcomeLabel.Text = $"{i}";
+            WelcomeLabel.Text = $"{i}";
             if ((i != -1) && (users[i + 1] == enterPasswordBox.Text))
             {
                 form1.Show();
-                form1.usernameLabel.Text = enterLoginBox.Text;
+                form1.UsernameTextBox.Text = enterLoginBox.Text;
                 enableToClose = T;
                 this.Close();
             }
-            else welcomeLabel.Text = "Somtehing went wrong...";
+            else WelcomeLabel.Text = "Somtehing went wrong...";
         }
 
         private void EnterPasswordBox_Enter(object sender, EventArgs e)

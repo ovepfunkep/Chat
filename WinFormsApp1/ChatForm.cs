@@ -12,14 +12,14 @@ using System.Text.RegularExpressions;
 
 namespace WinFormsApp1
 {
-    public partial class Form1 : Form
+    public partial class ChatForm : Form
     {
-        private const string Path = "T:\\903Б\\lab11Tyabin\\chat.txt"; //   "T:\\903Б\\lab11Tyabin\\users.txt"    "D:\\Programs\\Chat\\chat.txt"
-        public Form1()
+        private const string Path = "T:\\903Б\\ovepfunkep's hub\\chat.txt"; //   "T:\\903Б\\ovepfunkep's hub\\users.txt"    "D:\\Programs\\Chat\\chat.txt"
+        public ChatForm()
         {
             InitializeComponent();
             chatBox.Text = "Welcome to the club";
-            new Form2(this).ShowDialog();
+            new LoginForm(this).ShowDialog();
         }
 
         private void LoadChatBt_Click(object sender, EventArgs e)
@@ -29,7 +29,7 @@ namespace WinFormsApp1
 
         private void SendMessageBt_Click(object sender, EventArgs e)
         {
-            File.AppendAllText(Path,$"{usernameLabel.Text}: {messageBox.Text}\n");
+            File.AppendAllText(Path,$"{UsernameTextBox.Text}: {messageBox.Text}\n");
         }
 
         private void MessageBox_Enter(object sender, EventArgs e)
@@ -42,15 +42,15 @@ namespace WinFormsApp1
             if (messageBox.Text == "") messageBox.Text = "Enter your message";
         }
 
-        private void usernameLabel_Click(object sender, EventArgs e)
-        {
-            new Form2(this).ShowDialog();
-        }
-
         private void messageBox_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == Convert.ToChar(Keys.Enter))
                 SendMessageBt_Click(this, EventArgs.Empty);
+        }
+
+        private void logoutButton_Click(object sender, EventArgs e)
+        {
+            new LoginForm(this).ShowDialog();
         }
     }
 }
