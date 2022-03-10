@@ -39,9 +39,11 @@ namespace WinFormsApp1
             this.chatBox.BackColor = System.Drawing.SystemColors.Window;
             this.chatBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.chatBox.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.chatBox.HideSelection = false;
             this.chatBox.Location = new System.Drawing.Point(58, 66);
             this.chatBox.Name = "chatBox";
             this.chatBox.ReadOnly = true;
+            this.chatBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
             this.chatBox.Size = new System.Drawing.Size(440, 499);
             this.chatBox.TabIndex = 1;
             this.chatBox.Text = "";
@@ -49,8 +51,10 @@ namespace WinFormsApp1
             // loadChatBt
             // 
             this.loadChatBt.BackColor = System.Drawing.Color.Transparent;
+            this.loadChatBt.Cursor = System.Windows.Forms.Cursors.Hand;
             this.loadChatBt.FlatAppearance.BorderSize = 0;
-            this.loadChatBt.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.loadChatBt.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.loadChatBt.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.loadChatBt.Location = new System.Drawing.Point(420, 579);
             this.loadChatBt.Name = "loadChatBt";
             this.loadChatBt.Size = new System.Drawing.Size(41, 33);
@@ -61,7 +65,9 @@ namespace WinFormsApp1
             // sendMessageBt
             // 
             this.sendMessageBt.BackColor = System.Drawing.Color.Transparent;
+            this.sendMessageBt.Cursor = System.Windows.Forms.Cursors.Hand;
             this.sendMessageBt.FlatAppearance.BorderSize = 0;
+            this.sendMessageBt.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.sendMessageBt.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.sendMessageBt.Location = new System.Drawing.Point(467, 579);
             this.sendMessageBt.Name = "sendMessageBt";
@@ -90,7 +96,7 @@ namespace WinFormsApp1
             // 
             this.timer1.Enabled = true;
             this.timer1.Interval = 500;
-            this.timer1.Tick += new System.EventHandler(this.LoadChatBt_Click);
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // label1
             // 
@@ -115,7 +121,9 @@ namespace WinFormsApp1
             // logoutButton
             // 
             this.logoutButton.BackColor = System.Drawing.Color.Transparent;
+            this.logoutButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.logoutButton.FlatAppearance.BorderSize = 0;
+            this.logoutButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.logoutButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.logoutButton.Location = new System.Drawing.Point(189, 23);
             this.logoutButton.Name = "logoutButton";

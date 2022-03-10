@@ -42,9 +42,9 @@ namespace WinFormsApp1
             // 
             this.enterLoginBox.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.enterLoginBox.Location = new System.Drawing.Point(209, 164);
-            this.enterLoginBox.Multiline = true;
+            this.enterLoginBox.MaxLength = 15;
             this.enterLoginBox.Name = "enterLoginBox";
-            this.enterLoginBox.Size = new System.Drawing.Size(219, 34);
+            this.enterLoginBox.Size = new System.Drawing.Size(219, 32);
             this.enterLoginBox.TabIndex = 1;
             this.enterLoginBox.Text = "Enter login";
             this.enterLoginBox.Enter += new System.EventHandler(this.EnterLoginBox_Enter);
@@ -53,11 +53,11 @@ namespace WinFormsApp1
             // enterPasswordBox
             // 
             this.enterPasswordBox.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.enterPasswordBox.Location = new System.Drawing.Point(210, 205);
-            this.enterPasswordBox.Multiline = true;
+            this.enterPasswordBox.Location = new System.Drawing.Point(210, 206);
+            this.enterPasswordBox.MaxLength = 15;
             this.enterPasswordBox.Name = "enterPasswordBox";
             this.enterPasswordBox.PasswordChar = '*';
-            this.enterPasswordBox.Size = new System.Drawing.Size(218, 34);
+            this.enterPasswordBox.Size = new System.Drawing.Size(218, 32);
             this.enterPasswordBox.TabIndex = 2;
             this.enterPasswordBox.Text = "Enter password";
             this.enterPasswordBox.Enter += new System.EventHandler(this.EnterPasswordBox_Enter);

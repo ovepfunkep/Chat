@@ -22,9 +22,22 @@ namespace WinFormsApp1
             new LoginForm(this).ShowDialog();
         }
 
+        private void LoadChat()
+        {
+            var selection = chatBox.SelectionStart;
+            var chatText = File.ReadAllLines(Path);
+            var countLines = chatText.Count(character => (character == "\n")) + 1;
+            if (countLines > 15)
+                for (var i = chatText.Length - 15; i<chatText.Length; i++)
+                    chatBox.Text += chatText[i] + i;
+            else chatBox.Text = String.Join('\n',File.ReadAllLines(Path));
+            chatBox.SelectionStart = selection;
+        }
+
         private void LoadChatBt_Click(object sender, EventArgs e)
         {
-            chatBox.Text = String.Join('\n', File.ReadAllLines(Path));
+            LoadChat();
+            chatBox.SelectionStart = chatBox.Text.Length;
         }
 
         private void SendMessageBt_Click(object sender, EventArgs e)
@@ -51,6 +64,11 @@ namespace WinFormsApp1
         private void logoutButton_Click(object sender, EventArgs e)
         {
             new LoginForm(this).ShowDialog();
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            LoadChat();
         }
     }
 }
