@@ -48,7 +48,6 @@ namespace WinFormsApp1
         {
             var users = File.ReadAllLines(pathUsers);
             var i = Array.IndexOf(users,"`"+enterLoginBox.Text);
-            WelcomeLabel.Text = $"{i}";
             if ((i != -1) && (users[i + 1] == enterPasswordBox.Text))
             {
                 form1.Show();

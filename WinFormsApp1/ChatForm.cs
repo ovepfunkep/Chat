@@ -40,11 +40,13 @@ namespace WinFormsApp1
             get { return _loggedIn; }
             set
             {
-                if (!value)
+                if (value == false)
                 {
                     messageBox.Text = "You are not authorised to send messages";
                     messageBox.ReadOnly = true;
                     timer1.Enabled = false;
+                    sendMessageBt.Enabled = false;
+                    loadChatBt.Enabled = false;
                     _loggedIn = false;
                 }
                 else
@@ -52,6 +54,8 @@ namespace WinFormsApp1
                     messageBox.Text = "Enter your message";
                     messageBox.ReadOnly = false;
                     timer1.Enabled = true;
+                    sendMessageBt.Enabled = true;
+                    loadChatBt.Enabled = true;
                     _loggedIn = true;
                 }
             }
@@ -59,7 +63,6 @@ namespace WinFormsApp1
         private void LoadChatBt_Click(object sender, EventArgs e)
         {
             LoadChat();
-            chatBox.SelectionStart = chatBox.Text.Length;
         }
 
         private void SendMessageBt_Click(object sender, EventArgs e)
@@ -70,7 +73,7 @@ namespace WinFormsApp1
 
         private void MessageBox_Enter(object sender, EventArgs e)
         {
-            messageBox.Text = "";
+            if (LoggedIn) messageBox.Text = "";
         }
 
         private void messageBox_Leave(object sender, EventArgs e)
