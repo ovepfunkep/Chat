@@ -14,26 +14,48 @@ namespace WinFormsApp1
 {
     public partial class ChatForm : Form
     {
-        private const string Path = "T:\\903Б\\ovepfunkep's hub\\chat.txt"; //   "T:\\903Б\\ovepfunkep's hub\\users.txt"    "D:\\Programs\\Chat\\chat.txt"
+        private const string Path = @"D:\Programs\Chat1\chat.txt"; //   "T:\\903Б\\ovepfunkep's hub\\users.txt"    "D:\\Programs\\Chat1\\chat.txt"
         public ChatForm()
         {
             InitializeComponent();
             chatBox.Text = "Welcome to the club";
+            LoggedIn = false;
             new LoginForm(this).ShowDialog();
         }
 
         private void LoadChat()
         {
-            var selection = chatBox.SelectionStart;
+            chatBox.Text = "";
             var chatText = File.ReadAllLines(Path);
-            var countLines = chatText.Count(character => (character == "\n")) + 1;
+            var countLines = chatText.Length;
             if (countLines > 15)
                 for (var i = chatText.Length - 15; i<chatText.Length; i++)
-                    chatBox.Text += chatText[i] + i;
+                    chatBox.Text += chatText[i] + "\n";
             else chatBox.Text = String.Join('\n',File.ReadAllLines(Path));
-            chatBox.SelectionStart = selection;
         }
 
+        private bool _loggedIn;
+        public bool LoggedIn
+        {
+            get { return _loggedIn; }
+            set
+            {
+                if (!value)
+                {
+                    messageBox.Text = "You are not authorised to send messages";
+                    messageBox.ReadOnly = true;
+                    timer1.Enabled = false;
+                    _loggedIn = false;
+                }
+                else
+                {
+                    messageBox.Text = "Enter your message";
+                    messageBox.ReadOnly = false;
+                    timer1.Enabled = true;
+                    _loggedIn = true;
+                }
+            }
+        }
         private void LoadChatBt_Click(object sender, EventArgs e)
         {
             LoadChat();
@@ -43,6 +65,7 @@ namespace WinFormsApp1
         private void SendMessageBt_Click(object sender, EventArgs e)
         {
             File.AppendAllText(Path,$"{UsernameTextBox.Text}: {messageBox.Text}\n");
+            messageBox.Text = "";
         }
 
         private void MessageBox_Enter(object sender, EventArgs e)

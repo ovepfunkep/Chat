@@ -124,7 +124,6 @@ namespace WinFormsApp1
             this.Controls.Add(this.enterLoginBox);
             this.Name = "LoginForm";
             this.Text = "MyChat login";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form2_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
 

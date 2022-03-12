@@ -13,8 +13,8 @@ namespace WinFormsApp1
 {
     public partial class LoginForm : Form
     {
-        //   "T:\\903Б\\ovepfunkep's hub\\users.txt"    "D:\\Programs\\Chat\\users.txt"
-        private const string pathUsers = "T:\\903Б\\ovepfunkep's hub\\users.txt";
+        //   "T:\903Б\ovepfunkep's hub\users.txt"    "D:\Programs\Chat1\users.txt"
+        private const string pathUsers = @"D:\Programs\Chat1\users.txt";
         private const bool T = true;
         private const bool F = false;
 
@@ -31,7 +31,7 @@ namespace WinFormsApp1
             if (enterLoginBox.Text != "Enter login" && enterPasswordBox.Text != "Enter Password" && enterLoginBox.Text.Length > 3 && enterPasswordBox.Text.Length > 3)
             {
                 var users = File.ReadAllLines(pathUsers);
-                var i = Array.IndexOf(users, enterLoginBox);
+                var i = Array.IndexOf(users,"`" + enterLoginBox.Text);
                 if (i == -1)
                 {
                     File.AppendAllText(pathUsers, $"`{enterLoginBox.Text}\n{enterPasswordBox.Text}\n");
@@ -53,7 +53,7 @@ namespace WinFormsApp1
             {
                 form1.Show();
                 form1.UsernameTextBox.Text = enterLoginBox.Text;
-                enableToClose = T;
+                form1.LoggedIn = T;
                 this.Close();
             }
             else WelcomeLabel.Text = "Somtehing went wrong...";
@@ -77,18 +77,6 @@ namespace WinFormsApp1
         private void EnterLoginBox_Leave(object sender, EventArgs e)
         {
             if (enterLoginBox.Text == "") enterLoginBox.Text = "Enter login";
-        }
-
-        private bool enableToClose = F; 
-
-        private void Form2_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            if (enableToClose)
-            {
-                form1.messageBox.Visible = T;
-                form1.loadChatBt.Visible = T;
-                form1.sendMessageBt.Visible = T;
-            }
         }
     }
 }
