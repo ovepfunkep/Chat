@@ -13,8 +13,8 @@ namespace WinFormsApp1
 {
     public partial class LoginForm : Form
     {
-        //   "T:\\903Б\\ovepfunkep's hub\\users.txt"    "D:\\Programs\\Chat\\users.txt"
-        private const string pathUsers = "T:\\903Б\\ovepfunkep's hub\\users.txt";
+        //   "T:\903Б\\ovepfunkep's hub\users.txt"    "D:\Programs\Chat1\users.txt"
+        private const string pathUsers = @"T:\903Б\\ovepfunkep's hub\users.txt";
         private const bool T = true;
         private const bool F = false;
 
