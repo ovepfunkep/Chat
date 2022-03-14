@@ -123,7 +123,7 @@ namespace WinFormsApp1
             this.Controls.Add(this.enterPasswordBox);
             this.Controls.Add(this.enterLoginBox);
             this.Name = "LoginForm";
-            this.Text = "MyChat login";
+            this.Text = "MyChat(login)";
             this.ResumeLayout(false);
             this.PerformLayout();
 

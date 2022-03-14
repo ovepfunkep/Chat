@@ -135,7 +135,7 @@ namespace WinFormsApp1
             this.Controls.Add(this.loadChatBt);
             this.Controls.Add(this.chatBox);
             this.Name = "ChatForm";
-            this.Text = "Form1";
+            this.Text = "MyChat";
             this.ResumeLayout(false);
             this.PerformLayout();
 

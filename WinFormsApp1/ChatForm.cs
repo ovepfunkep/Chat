@@ -14,7 +14,7 @@ namespace WinFormsApp1
 {
     public partial class ChatForm : Form
     {
-        private const string Path = @"D:\Programs\Chat1\chat.txt"; //   "T:\\903Б\\ovepfunkep's hub\\users.txt"    "D:\\Programs\\Chat1\\chat.txt"
+        private const string Path = @"T:\903Б\ovepfunkep's hub\chat.txt"; //   "T:\903Б\ovepfunkep's hub\users.txt"    "D:\Programs\Chat1\chat.txt"
         public ChatForm()
         {
             InitializeComponent();

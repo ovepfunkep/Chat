@@ -14,9 +14,7 @@ namespace WinFormsApp1
     public partial class LoginForm : Form
     {
         //   "T:\903Б\ovepfunkep's hub\users.txt"    "D:\Programs\Chat1\users.txt"
-        private const string pathUsers = @"D:\Programs\Chat1\users.txt";
-        private const bool T = true;
-        private const bool F = false;
+        private const string pathUsers = @"T:\903Б\ovepfunkep's hub\users.txt";
 
         public LoginForm(ChatForm form)
         {
@@ -52,7 +50,7 @@ namespace WinFormsApp1
             {
                 form1.Show();
                 form1.UsernameTextBox.Text = enterLoginBox.Text;
-                form1.LoggedIn = T;
+                form1.LoggedIn = true;
                 this.Close();
             }
             else WelcomeLabel.Text = "Somtehing went wrong...";
