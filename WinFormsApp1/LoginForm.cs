@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using MySql.Data.MySqlClient;
 
 namespace WinFormsApp1
 {
@@ -15,6 +16,11 @@ namespace WinFormsApp1
     {
         //   "T:\903Б\ovepfunkep's hub\users.txt"    "D:\Programs\Chat1\users.txt"
         private const string pathUsers = @"T:\903Б\ovepfunkep's hub\users.txt";
+        string host = "sql6.freemysqlhosting.net";
+        string user = "sql6479133";
+        string database = "sql6479133";
+        string password = "DBfQqCGsuJ";
+        MySqlConnection connection;
 
         public LoginForm(ChatForm form)
         {
@@ -26,6 +32,7 @@ namespace WinFormsApp1
 
         private void RegBt_Click(object sender, EventArgs e)
         {
+            /*
             if (enterLoginBox.Text != "Enter login" && enterPasswordBox.Text != "Enter Password" && enterLoginBox.Text.Length > 3 && enterPasswordBox.Text.Length > 3)
             {
                 var users = File.ReadAllLines(pathUsers);
@@ -40,10 +47,23 @@ namespace WinFormsApp1
                 else WelcomeLabel.Text = "User already exists";
             }
             else WelcomeLabel.Text = "Try entering login and password.\n Both should be more than 3 symbols";
+            */
+            string connectString = "Database=" + database + ";Data Source=" + host + ";User=" + user + ";Password=" + password;
+            using (connection = new MySqlConnection(connectString))
+            {
+                connection.Open();
+                string query = "Insert into `Users` values ('@Login','@Password','Offline')";
+                MySqlCommand command = new MySqlCommand(query, connection);
+                command.Parameters.AddWithValue("Login", enterLoginBox.Text);
+                command.Parameters.AddWithValue("Password", enterPasswordBox.Text);
+                command.ExecuteNonQuery();
+            }
+            MessageBox.Show("Now enter login and password again", "oK");
         }
 
         private void EnterBt_Click(object sender, EventArgs e)
         {
+            /*
             var users = File.ReadAllLines(pathUsers);
             var i = Array.IndexOf(users,"`"+enterLoginBox.Text);
             if ((i != -1) && (users[i + 1] == enterPasswordBox.Text))
@@ -54,6 +74,24 @@ namespace WinFormsApp1
                 this.Close();
             }
             else WelcomeLabel.Text = "Somtehing went wrong...";
+            */
+            string connectString = "Database=" + database + ";Data Source=" + host + ";User=" + user + ";Password=" + password;
+            using (connection = new MySqlConnection(connectString))
+            {
+                connection.Open();
+                string query = "select * from Users where Login = @Login and Password = @Password";
+                MySqlCommand command = new MySqlCommand(query, connection);
+                command.Parameters.AddWithValue("Login", enterLoginBox.Text);
+                command.Parameters.AddWithValue("Password", enterPasswordBox.Text);
+                MySqlDataReader reader = command.ExecuteReader();
+                if (reader.Read())
+                {
+                    form1.Show();
+                    form1.UsernameTextBox.Text = enterLoginBox.Text;
+                    form1.LoggedIn = true;
+                    this.Close();
+                }
+            }          
         }
 
         private void EnterPasswordBox_Enter(object sender, EventArgs e)
