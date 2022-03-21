@@ -7,28 +7,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.IO;
-using MySql.Data.MySqlClient;
+using System.Data.SqlClient;
+using static WinFormsApp1.Utilities;
 
 namespace WinFormsApp1
 {
     public partial class LoginForm : Form
     {
-        //   "T:\903Б\ovepfunkep's hub\users.txt"    "D:\Programs\Chat1\users.txt"
-        private const string pathUsers = @"T:\903Б\ovepfunkep's hub\users.txt";
-        string host = "sql6.freemysqlhosting.net";
-        string user = "sql6479133";
-        string database = "sql6479133";
-        string password = "DBfQqCGsuJ";
-        MySqlConnection connection;
-
+        private ChatForm form1;
         public LoginForm(ChatForm form)
         {
             InitializeComponent();
             form1 = form;
         }
-
-        private ChatForm form1;
 
         private void RegBt_Click(object sender, EventArgs e)
         {
@@ -48,8 +39,7 @@ namespace WinFormsApp1
             }
             else WelcomeLabel.Text = "Try entering login and password.\n Both should be more than 3 symbols";
             */
-            string connectString = "Database=" + database + ";Data Source=" + host + ";User=" + user + ";Password=" + password;
-            using (connection = new MySqlConnection(connectString))
+            using ()
             {
                 connection.Open();
                 string query = "Insert into `Users` values ('@Login','@Password','Offline')";
