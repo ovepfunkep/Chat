@@ -21,6 +21,22 @@ namespace WinFormsApp1
             form1 = form;
         }
 
+        private bool CheckUser (string username, string password = null)
+        {
+            using (SqlConnection connection = new(connectionString))
+            {
+                connection.Open();
+                string query;
+                if (password != null) query = "select * from Users where Login = @Login and Password = @Password";
+                else query = "select * from Users where Login = @Login";
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("Login", enterLoginBox.Text);
+                if (password != null) command.Parameters.AddWithValue("Password", enterPasswordBox.Text);
+                SqlDataReader reader = command.ExecuteReader();
+                if (reader.Read()) return true;
+                return false;
+            }
+        }
         private void RegBt_Click(object sender, EventArgs e)
         {
             /*
@@ -39,16 +55,19 @@ namespace WinFormsApp1
             }
             else WelcomeLabel.Text = "Try entering login and password.\n Both should be more than 3 symbols";
             */
-            using ()
+            if (!CheckUser(enterLoginBox.Text))
             {
-                connection.Open();
-                string query = "Insert into `Users` values ('@Login','@Password','Offline')";
-                MySqlCommand command = new MySqlCommand(query, connection);
-                command.Parameters.AddWithValue("Login", enterLoginBox.Text);
-                command.Parameters.AddWithValue("Password", enterPasswordBox.Text);
-                command.ExecuteNonQuery();
+                using (SqlConnection connection = new())
+                {
+                    connection.Open();
+                    string query = "Insert into Users values ('@Login','@Password',2)";
+                    SqlCommand command = new(query, connection);
+                    command.Parameters.AddWithValue("Login", enterLoginBox.Text);
+                    command.Parameters.AddWithValue("Password", enterPasswordBox.Text);
+                    command.ExecuteNonQuery();
+                }
+                MessageBox.Show("Now enter login and password again", "Ok");
             }
-            MessageBox.Show("Now enter login and password again", "oK");
         }
 
         private void EnterBt_Click(object sender, EventArgs e)
@@ -65,23 +84,11 @@ namespace WinFormsApp1
             }
             else WelcomeLabel.Text = "Somtehing went wrong...";
             */
-            string connectString = "Database=" + database + ";Data Source=" + host + ";User=" + user + ";Password=" + password;
-            using (connection = new MySqlConnection(connectString))
-            {
-                connection.Open();
-                string query = "select * from Users where Login = @Login and Password = @Password";
-                MySqlCommand command = new MySqlCommand(query, connection);
-                command.Parameters.AddWithValue("Login", enterLoginBox.Text);
-                command.Parameters.AddWithValue("Password", enterPasswordBox.Text);
-                MySqlDataReader reader = command.ExecuteReader();
-                if (reader.Read())
-                {
-                    form1.Show();
-                    form1.UsernameTextBox.Text = enterLoginBox.Text;
-                    form1.LoggedIn = true;
-                    this.Close();
-                }
-            }          
+            form1.Show();
+            form1.UsernameTextBox.Text = enterLoginBox.Text;
+            form1.LoggedIn = true;
+            this.Close();
+            
         }
 
         private void EnterPasswordBox_Enter(object sender, EventArgs e)

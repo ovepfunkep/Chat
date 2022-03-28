@@ -33,10 +33,7 @@ namespace WinFormsApp1
                     chatBox.Text += chatText[i] + "\n";
             else chatBox.Text = String.Join('\n',File.ReadAllLines(Path));
         }
-        string host = "sql6.freemysqlhosting.net";
-        string user = "sql6479133";
-        string database = "sql6479133";
-        string password = "DBfQqCGsuJ";
+
         private bool _loggedIn;
         public bool LoggedIn
         {

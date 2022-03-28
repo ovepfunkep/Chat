@@ -8,8 +8,7 @@ namespace WinFormsApp1
 {
     class Utilities
     {
-        public string connectionString = @"Data Source=DBSrv\SQL2021;Integrated Security=True;Connect Timeout=30;
-            Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+        public readonly static string connectionString = @"Data Source=DBSrv\SQL2021;Initial Catalog=MyChat;Integrated Security=True";
 
 
     }
