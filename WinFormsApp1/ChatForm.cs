@@ -9,57 +9,53 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using System.Text.RegularExpressions;
+using static WinFormsApp1.Utilities;
+using static WinFormsApp1.Utilities.Methods;
 
 namespace WinFormsApp1
 {
     public partial class ChatForm : Form
     {
-        private const string Path = @"T:\903Б\ovepfunkep's hub\chat.txt"; //   "T:\903Б\ovepfunkep's hub\users.txt"    "D:\Programs\Chat1\chat.txt"
         public ChatForm()
         {
             InitializeComponent();
             chatBox.Text = "Welcome to the club";
-            LoggedIn = false;
             new LoginForm(this).ShowDialog();
         }
 
         private void LoadChat()
         {
-            chatBox.Text = "";
-            var chatText = File.ReadAllLines(Path);
-            var countLines = chatText.Length;
-            if (countLines > 15)
-                for (var i = chatText.Length - 15; i<chatText.Length; i++)
-                    chatBox.Text += chatText[i] + "\n";
-            else chatBox.Text = String.Join('\n',File.ReadAllLines(Path));
+            //chatBox.Text = "";
+            //var chatText = File.ReadAllLines(Path);
+            //var countLines = chatText.Length;
+            //if (countLines > 15)
+            //    for (var i = chatText.Length - 15; i<chatText.Length; i++)
+            //        chatBox.Text += chatText[i] + "\n";
+            //else chatBox.Text = String.Join('\n',File.ReadAllLines(Path));
+
         }
 
-        private bool _loggedIn;
-        public bool LoggedIn
+        public void UpdateChatForm(string username = "")
         {
-            get { return _loggedIn; }
-            set
+            if (username == "")
             {
-                if (value == false)
-                {
-                    messageBox.Text = "You are not authorised to send messages";
-                    messageBox.ReadOnly = true;
-                    timer1.Enabled = false;
-                    sendMessageBt.Enabled = false;
-                    loadChatBt.Enabled = false;
-                    _loggedIn = false;
-                }
-                else
-                {
-                    messageBox.Text = "Enter your message";
-                    messageBox.ReadOnly = false;
-                    timer1.Enabled = true;
-                    sendMessageBt.Enabled = true;
-                    loadChatBt.Enabled = true;
-                    _loggedIn = true;
-                }
+                UsernameTextBox.Text = username;
+                messageBox.Text = "You are not authorised to send messages";
+                messageBox.ReadOnly = true;
+                timer1.Enabled = false;
+                sendMessageBt.Enabled = false;
+                loadChatBt.Enabled = false;
+            }
+            else
+            {
+                messageBox.Text = "Enter your message";
+                messageBox.ReadOnly = false;
+                timer1.Enabled = true;
+                sendMessageBt.Enabled = true;
+                loadChatBt.Enabled = true;
             }
         }
+
         private void LoadChatBt_Click(object sender, EventArgs e)
         {
             LoadChat();
@@ -67,13 +63,13 @@ namespace WinFormsApp1
 
         private void SendMessageBt_Click(object sender, EventArgs e)
         {
-            File.AppendAllText(Path,$"{UsernameTextBox.Text}: {messageBox.Text}\n");
+            //File.AppendAllText(Path,$"{UsernameTextBox.Text}: {messageBox.Text}\n");
             messageBox.Text = "";
         }
 
         private void MessageBox_Enter(object sender, EventArgs e)
         {
-            if (LoggedIn) messageBox.Text = "";
+            if (UsernameTextBox.Text != "") messageBox.Text = "";
         }
 
         private void messageBox_Leave(object sender, EventArgs e)
@@ -89,12 +85,18 @@ namespace WinFormsApp1
 
         private void logoutButton_Click(object sender, EventArgs e)
         {
+            UpdateChatForm();
             new LoginForm(this).ShowDialog();
         }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
             LoadChat();
+        }
+
+        private void ChatForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            UpdateUserStatus(UsernameTextBox.Text, "Offline");
         }
     }
 }

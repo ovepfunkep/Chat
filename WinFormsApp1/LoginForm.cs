@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 using static WinFormsApp1.Utilities;
+using static WinFormsApp1.Utilities.Methods;
 
 namespace WinFormsApp1
 {
@@ -21,6 +22,12 @@ namespace WinFormsApp1
             form1 = form;
         }
 
+        bool CheckTextBoxes()
+        {
+            return (enterLoginBox.Text != "" && enterLoginBox.Text != "Enter login" &&
+                enterPasswordBox.Text != "" && enterPasswordBox.Text != "Enter password");
+        }
+
         private bool CheckUser (string mode)
         {
             using (SqlConnection connection = new(connectionString))
@@ -29,7 +36,7 @@ namespace WinFormsApp1
                 string query;
                 if (mode == "login") query = "select * from Users where Nickname = @Nickname and Password = @Password";
                 else query = "select * from Users where Nickname = @Nickname";
-                SqlCommand command = new SqlCommand(query, connection);
+                SqlCommand command = new(query, connection);
                 command.Parameters.AddWithValue("Nickname", enterLoginBox.Text);
                 if (mode == "login") command.Parameters.AddWithValue("Password", enterPasswordBox.Text);
                 SqlDataReader reader = command.ExecuteReader();
@@ -39,44 +46,36 @@ namespace WinFormsApp1
         }
         private void RegBt_Click(object sender, EventArgs e)
         {
-            if (!CheckUser("register"))
-            {
-                using (SqlConnection connection = new(connectionString))
+            if (CheckTextBoxes())
+                if (!CheckUser("register"))
                 {
-                    connection.Open();
-                    string query = "Insert into Users values (@Login,@Password,2)";
-                    SqlCommand command = new(query, connection);
-                    command.Parameters.AddWithValue("Login", enterLoginBox.Text);
-                    command.Parameters.AddWithValue("Password", enterPasswordBox.Text);
-                    command.ExecuteNonQuery();
+                    using (SqlConnection connection = new(connectionString))
+                    {
+                        connection.Open();
+                        string query = "Insert into Users values (@Login,@Password,2)";
+                        SqlCommand command = new(query, connection);
+                        command.Parameters.AddWithValue("Login", enterLoginBox.Text);
+                        command.Parameters.AddWithValue("Password", enterPasswordBox.Text);
+                        command.ExecuteNonQuery();
+                    }
+                    MessageBox.Show("You are succesfully registered", "Ok");
                 }
-                MessageBox.Show("You are succesfully registered", "Ok");
-            }
-            else MessageBox.Show("User already exists", "Ok");
+                else MessageBox.Show("User already exists", "Ok");
+            else MessageBox.Show("Fields filled incorrectly!");
         }
 
         private void EnterBt_Click(object sender, EventArgs e)
         {
-            /*
-            var users = File.ReadAllLines(pathUsers);
-            var i = Array.IndexOf(users,"`"+enterLoginBox.Text);
-            if ((i != -1) && (users[i + 1] == enterPasswordBox.Text))
-            {
-                form1.Show();
-                form1.UsernameTextBox.Text = enterLoginBox.Text;
-                form1.LoggedIn = true;
-                this.Close();
-            }
-            else WelcomeLabel.Text = "Somtehing went wrong...";
-            */
-            if (CheckUser("login"))
-            {
-                form1.Show();
-                form1.UsernameTextBox.Text = enterLoginBox.Text;
-                form1.LoggedIn = true;
-                this.Close();
-            }
-            else MessageBox.Show("User isn't exists", "Ok");
+            if (CheckTextBoxes())
+                if (CheckUser("login"))
+                {
+                    form1.Show();
+                    UpdateUserStatus(enterLoginBox.Text, "Online");
+                    form1.UpdateChatForm(enterLoginBox.Text);
+                    this.Close();
+                }
+                else MessageBox.Show("User isn't exists", "Ok");
+            else MessageBox.Show("Fields filled incorrectly!");
         }
 
         private void EnterPasswordBox_Enter(object sender, EventArgs e)

@@ -136,6 +136,7 @@ namespace WinFormsApp1
             this.Controls.Add(this.chatBox);
             this.Name = "ChatForm";
             this.Text = "MyChat";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ChatForm_FormClosed);
             this.ResumeLayout(false);
             this.PerformLayout();
 
