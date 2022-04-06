@@ -11,6 +11,7 @@ using System.IO;
 using System.Text.RegularExpressions;
 using static WinFormsApp1.Utilities;
 using static WinFormsApp1.Utilities.Methods;
+using System.Data.SqlClient;
 
 namespace WinFormsApp1
 {
@@ -25,7 +26,14 @@ namespace WinFormsApp1
 
         private void LoadChat()
         {
-            //chatBox.Text = "";
+            chatBox.Text = "";
+            string curChatName;
+            if (tabControl1.SelectedIndex != tabControl1.TabCount - 1) curChatName = tabControl1.SelectedTab.Text;
+            else return;
+            using (SqlConnection connection = new(connectionString))
+            {
+
+            }
             //var chatText = File.ReadAllLines(Path);
             //var countLines = chatText.Length;
             //if (countLines > 15)
@@ -48,6 +56,7 @@ namespace WinFormsApp1
             }
             else
             {
+                UsernameTextBox.Text = username;
                 messageBox.Text = "Enter your message";
                 messageBox.ReadOnly = false;
                 timer1.Enabled = true;
@@ -63,7 +72,10 @@ namespace WinFormsApp1
 
         private void SendMessageBt_Click(object sender, EventArgs e)
         {
-            //File.AppendAllText(Path,$"{UsernameTextBox.Text}: {messageBox.Text}\n");
+            using (SqlConnection connection = new(connectionString))
+            {
+                string query = "Insert into "
+            }
             messageBox.Text = "";
         }
 
@@ -85,6 +97,7 @@ namespace WinFormsApp1
 
         private void logoutButton_Click(object sender, EventArgs e)
         {
+            UpdateUserStatus(UsernameTextBox.Text, "Offline");
             UpdateChatForm();
             new LoginForm(this).ShowDialog();
         }

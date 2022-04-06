@@ -58,7 +58,8 @@ namespace WinFormsApp1
                         command.Parameters.AddWithValue("Password", enterPasswordBox.Text);
                         command.ExecuteNonQuery();
                     }
-                    MessageBox.Show("You are succesfully registered", "Ok");
+                    MessageBox.Show("You are succesfully registered", "Open chat");
+                    EnterBt_Click(sender,e);
                 }
                 else MessageBox.Show("User already exists", "Ok");
             else MessageBox.Show("Fields filled incorrectly!");
