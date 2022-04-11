@@ -7,56 +7,76 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.IO;
+using System.Data.SqlClient;
+using static WinFormsApp1.Utilities;
+using static WinFormsApp1.Utilities.Methods;
 
 namespace WinFormsApp1
 {
     public partial class LoginForm : Form
     {
-        //   "T:\903Б\\ovepfunkep's hub\users.txt"    "D:\Programs\Chat1\users.txt"
-        private const string pathUsers = @"T:\903Б\\ovepfunkep's hub\users.txt";
-        private const bool T = true;
-        private const bool F = false;
-
+        private ChatForm form1;
         public LoginForm(ChatForm form)
         {
             InitializeComponent();
             form1 = form;
         }
 
-        private ChatForm form1;
+        bool CheckTextBoxes()
+        {
+            return (enterLoginBox.Text != "" && enterLoginBox.Text != "Enter login" &&
+                enterPasswordBox.Text != "" && enterPasswordBox.Text != "Enter password");
+        }
 
+        private bool CheckUser (string mode)
+        {
+            using (SqlConnection connection = new(connectionString))
+            {
+                connection.Open();
+                string query;
+                if (mode == "login") query = "select * from Users where Nickname = @Nickname and Password = @Password";
+                else query = "select * from Users where Nickname = @Nickname";
+                SqlCommand command = new(query, connection);
+                command.Parameters.AddWithValue("Nickname", enterLoginBox.Text);
+                if (mode == "login") command.Parameters.AddWithValue("Password", enterPasswordBox.Text);
+                SqlDataReader reader = command.ExecuteReader();
+                if (reader.Read()) return true;
+                return false;
+            }
+        }
         private void RegBt_Click(object sender, EventArgs e)
         {
-            if (enterLoginBox.Text != "Enter login" && enterPasswordBox.Text != "Enter Password" && enterLoginBox.Text.Length > 3 && enterPasswordBox.Text.Length > 3)
-            {
-                var users = File.ReadAllLines(pathUsers);
-                var i = Array.IndexOf(users, enterLoginBox);
-                if (i == -1)
+            if (CheckTextBoxes())
+                if (!CheckUser("register"))
                 {
-                    File.AppendAllText(pathUsers, $"`{enterLoginBox.Text}\n{enterPasswordBox.Text}\n");
-                    enterLoginBox.Text = "Enter login";
-                    enterPasswordBox.Text = "Enter Password";
-                    WelcomeLabel.Text = "Now enter login and password again";
+                    using (SqlConnection connection = new(connectionString))
+                    {
+                        connection.Open();
+                        string query = "Insert into Users values (@Login,@Password,2)";
+                        SqlCommand command = new(query, connection);
+                        command.Parameters.AddWithValue("Login", enterLoginBox.Text);
+                        command.Parameters.AddWithValue("Password", enterPasswordBox.Text);
+                        command.ExecuteNonQuery();
+                    }
+                    MessageBox.Show("You are succesfully registered", "Open chat");
+                    EnterBt_Click(sender,e);
                 }
-                else WelcomeLabel.Text = "User already exists";
-            }
-            else WelcomeLabel.Text = "Try entering login and password.\n Both should be more than 3 symbols";
+                else MessageBox.Show("User already exists", "Ok");
+            else MessageBox.Show("Fields filled incorrectly!");
         }
 
         private void EnterBt_Click(object sender, EventArgs e)
         {
-            var users = File.ReadAllLines(pathUsers);
-            var i = Array.IndexOf(users,"`"+enterLoginBox.Text);
-            WelcomeLabel.Text = $"{i}";
-            if ((i != -1) && (users[i + 1] == enterPasswordBox.Text))
-            {
-                form1.Show();
-                form1.UsernameTextBox.Text = enterLoginBox.Text;
-                enableToClose = T;
-                this.Close();
-            }
-            else WelcomeLabel.Text = "Somtehing went wrong...";
+            if (CheckTextBoxes())
+                if (CheckUser("login"))
+                {
+                    form1.Show();
+                    UpdateUserStatus(enterLoginBox.Text, "Online");
+                    form1.UpdateChatForm(enterLoginBox.Text);
+                    this.Close();
+                }
+                else MessageBox.Show("User isn't exists", "Ok");
+            else MessageBox.Show("Fields filled incorrectly!");
         }
 
         private void EnterPasswordBox_Enter(object sender, EventArgs e)
@@ -77,18 +97,6 @@ namespace WinFormsApp1
         private void EnterLoginBox_Leave(object sender, EventArgs e)
         {
             if (enterLoginBox.Text == "") enterLoginBox.Text = "Enter login";
-        }
-
-        private bool enableToClose = F; 
-
-        private void Form2_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            if (enableToClose)
-            {
-                form1.messageBox.Visible = T;
-                form1.loadChatBt.Visible = T;
-                form1.sendMessageBt.Visible = T;
-            }
         }
     }
 }

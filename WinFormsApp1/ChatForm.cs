@@ -9,12 +9,14 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using System.Text.RegularExpressions;
+using static WinFormsApp1.Utilities;
+using static WinFormsApp1.Utilities.Methods;
+using System.Data.SqlClient;
 
 namespace WinFormsApp1
 {
     public partial class ChatForm : Form
     {
-        private const string Path = "T:\\903Б\\ovepfunkep's hub\\chat.txt"; //   "T:\\903Б\\ovepfunkep's hub\\users.txt"    "D:\\Programs\\Chat\\chat.txt"
         public ChatForm()
         {
             InitializeComponent();
@@ -24,30 +26,62 @@ namespace WinFormsApp1
 
         private void LoadChat()
         {
-            var selection = chatBox.SelectionStart;
-            var chatText = File.ReadAllLines(Path);
-            var countLines = chatText.Count(character => (character == "\n")) + 1;
-            if (countLines > 15)
-                for (var i = chatText.Length - 15; i<chatText.Length; i++)
-                    chatBox.Text += chatText[i] + i;
-            else chatBox.Text = String.Join('\n',File.ReadAllLines(Path));
-            chatBox.SelectionStart = selection;
+            chatBox.Text = "";
+            string curChatName;
+            if (tabControl1.SelectedIndex != tabControl1.TabCount - 1) curChatName = tabControl1.SelectedTab.Text;
+            else return;
+            using (SqlConnection connection = new(connectionString))
+            {
+
+            }
+            //var chatText = File.ReadAllLines(Path);
+            //var countLines = chatText.Length;
+            //if (countLines > 15)
+            //    for (var i = chatText.Length - 15; i<chatText.Length; i++)
+            //        chatBox.Text += chatText[i] + "\n";
+            //else chatBox.Text = String.Join('\n',File.ReadAllLines(Path));
+
+        }
+
+        public void UpdateChatForm(string username = "")
+        {
+            if (username == "")
+            {
+                UsernameTextBox.Text = username;
+                messageBox.Text = "You are not authorised to send messages";
+                messageBox.ReadOnly = true;
+                timer1.Enabled = false;
+                sendMessageBt.Enabled = false;
+                loadChatBt.Enabled = false;
+            }
+            else
+            {
+                UsernameTextBox.Text = username;
+                messageBox.Text = "Enter your message";
+                messageBox.ReadOnly = false;
+                timer1.Enabled = true;
+                sendMessageBt.Enabled = true;
+                loadChatBt.Enabled = true;
+            }
         }
 
         private void LoadChatBt_Click(object sender, EventArgs e)
         {
             LoadChat();
-            chatBox.SelectionStart = chatBox.Text.Length;
         }
 
         private void SendMessageBt_Click(object sender, EventArgs e)
         {
-            File.AppendAllText(Path,$"{UsernameTextBox.Text}: {messageBox.Text}\n");
+            using (SqlConnection connection = new(connectionString))
+            {
+                string query = "Insert into "
+            }
+            messageBox.Text = "";
         }
 
         private void MessageBox_Enter(object sender, EventArgs e)
         {
-            messageBox.Text = "";
+            if (UsernameTextBox.Text != "") messageBox.Text = "";
         }
 
         private void messageBox_Leave(object sender, EventArgs e)
@@ -63,12 +97,19 @@ namespace WinFormsApp1
 
         private void logoutButton_Click(object sender, EventArgs e)
         {
+            UpdateUserStatus(UsernameTextBox.Text, "Offline");
+            UpdateChatForm();
             new LoginForm(this).ShowDialog();
         }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
             LoadChat();
+        }
+
+        private void ChatForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            UpdateUserStatus(UsernameTextBox.Text, "Offline");
         }
     }
 }
