@@ -9,7 +9,6 @@ namespace WinFormsApp1
 {
     class Utilities
     {
-        //@"Data Source=DBSrv\SQL2021;Initial Catalog=MyChat;Integrated Security=True";
         public readonly static string connectionString = @"Data Source=DESKTOP-M7EVVNL\SQLEXPRESS;Initial Catalog=MyChat;Integrated Security=True";
         public class Methods
         {
