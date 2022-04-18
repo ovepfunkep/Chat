@@ -26,14 +26,7 @@ namespace WinFormsApp1
 
         private void LoadChat()
         {
-            chatBox.Text = "";
-            string curChatName;
-            if (tabControl1.SelectedIndex != tabControl1.TabCount - 1) curChatName = tabControl1.SelectedTab.Text;
-            else return;
-            using (SqlConnection connection = new(connectionString))
-            {
-
-            }
+            
             //var chatText = File.ReadAllLines(Path);
             //var countLines = chatText.Length;
             //if (countLines > 15)
@@ -72,9 +65,24 @@ namespace WinFormsApp1
 
         private void SendMessageBt_Click(object sender, EventArgs e)
         {
+            if (tabControl1.SelectedIndex == tabControl1.TabCount - 1)
+            {
+                MessageBox.Show("You can't send messages here");
+                return;
+            }
+            chatBox.Text = "";
             using (SqlConnection connection = new(connectionString))
             {
-                string query = "Insert into "
+                string query = "insert into Messages values " +
+                    "((Select Id from Users where Nickname = @Nickname)," +
+                    "@MessageText,@SentTime,(Select Id from Chats where Chat._name = @ChatName))";
+                connection.Open();
+                SqlCommand command = new(query, connection);
+                command.Parameters.AddWithValue("Nickname", UsernameTextBox.Text);
+                command.Parameters.AddWithValue("MessageText", messageBox.Text);
+                command.Parameters.AddWithValue("SentTime", DateTime.Now);
+                command.Parameters.AddWithValue("ChatName", tabControl1.SelectedTab.Name);
+                command.ExecuteNonQuery();
             }
             messageBox.Text = "";
         }

@@ -35,7 +35,6 @@ namespace WinFormsApp1
             this.tabPageFlood = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabControl1.SuspendLayout();
-            this.tabPageFlood.SuspendLayout();
             this.SuspendLayout();
             // 
             // chatBox
@@ -44,11 +43,11 @@ namespace WinFormsApp1
             this.chatBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.chatBox.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.chatBox.HideSelection = false;
-            this.chatBox.Location = new System.Drawing.Point(0, 0);
+            this.chatBox.Location = new System.Drawing.Point(58, 99);
             this.chatBox.Name = "chatBox";
             this.chatBox.ReadOnly = true;
             this.chatBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
-            this.chatBox.Size = new System.Drawing.Size(432, 467);
+            this.chatBox.Size = new System.Drawing.Size(439, 468);
             this.chatBox.TabIndex = 1;
             this.chatBox.Text = "";
             // 
@@ -135,16 +134,15 @@ namespace WinFormsApp1
             this.tabControl1.Location = new System.Drawing.Point(58, 62);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(440, 505);
+            this.tabControl1.Size = new System.Drawing.Size(440, 31);
             this.tabControl1.TabIndex = 9;
             // 
             // tabPageFlood
             // 
-            this.tabPageFlood.Controls.Add(this.chatBox);
             this.tabPageFlood.Location = new System.Drawing.Point(4, 34);
             this.tabPageFlood.Name = "tabPageFlood";
             this.tabPageFlood.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageFlood.Size = new System.Drawing.Size(432, 467);
+            this.tabPageFlood.Size = new System.Drawing.Size(432, 0);
             this.tabPageFlood.TabIndex = 0;
             this.tabPageFlood.Text = "Flood";
             this.tabPageFlood.UseVisualStyleBackColor = true;
@@ -155,7 +153,7 @@ namespace WinFormsApp1
             this.tabPage2.Location = new System.Drawing.Point(4, 34);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(432, 467);
+            this.tabPage2.Size = new System.Drawing.Size(432, 0);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "tabPage2";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -166,6 +164,7 @@ namespace WinFormsApp1
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.ClientSize = new System.Drawing.Size(584, 661);
+            this.Controls.Add(this.chatBox);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.logoutButton);
             this.Controls.Add(this.UsernameTextBox);
@@ -176,7 +175,6 @@ namespace WinFormsApp1
             this.Text = "MyChat";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ChatForm_FormClosed);
             this.tabControl1.ResumeLayout(false);
-            this.tabPageFlood.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
