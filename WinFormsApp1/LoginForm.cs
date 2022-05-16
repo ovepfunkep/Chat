@@ -52,11 +52,17 @@ namespace WinFormsApp1
                     using (SqlConnection connection = new(connectionString))
                     {
                         connection.Open();
-                        string query = "Insert into Users values (@Login,@Password,2)";
+                        string query = "Insert into Users values (@Nickname,@Password,2)";
                         SqlCommand command = new(query, connection);
-                        command.Parameters.AddWithValue("Login", enterLoginBox.Text);
+                        command.Parameters.AddWithValue("Nickname", enterLoginBox.Text);
                         command.Parameters.AddWithValue("Password", enterPasswordBox.Text);
                         command.ExecuteNonQuery();
+                        query = "Insert into ChatsUsers values " +
+                            "((Select Id from Chats where Chats._name = 'Flood'), " +
+                            "(Select Id from Users where Users.Nickname = @Nickname))";
+                        SqlCommand command2 = new(query, connection);
+                        command2.Parameters.AddWithValue("Nickname", enterLoginBox.Text);
+                        command2.ExecuteNonQuery();
                     }
                     MessageBox.Show("You are succesfully registered", "Open chat");
                     EnterBt_Click(sender,e);
@@ -73,6 +79,7 @@ namespace WinFormsApp1
                     form1.Show();
                     UpdateUserStatus(enterLoginBox.Text, "Online");
                     form1.UpdateChatForm(enterLoginBox.Text);
+                    form1.LoadChat();
                     this.Close();
                 }
                 else MessageBox.Show("User isn't exists", "Ok");

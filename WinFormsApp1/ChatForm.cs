@@ -24,15 +24,18 @@ namespace WinFormsApp1
             new LoginForm(this).ShowDialog();
         }
 
-        private void LoadChat()
+        public void LoadChat()
         {
-            
-            //var chatText = File.ReadAllLines(Path);
-            //var countLines = chatText.Length;
-            //if (countLines > 15)
-            //    for (var i = chatText.Length - 15; i<chatText.Length; i++)
-            //        chatBox.Text += chatText[i] + "\n";
-            //else chatBox.Text = String.Join('\n',File.ReadAllLines(Path));
+            using (SqlConnection connection = new(connectionString))
+            {
+                string query = "Select Users.Nickname,MessageText from Messages inner join Users on Users.Id = Messages.UserId inner join Chats on Chats.Id = Messages.ChatId where Chats.Id = (Select Id from Chats where Chats._name = @ChatName)";
+                connection.Open();
+                SqlCommand command = new(query, connection);
+                command.Parameters.AddWithValue("ChatName", tabControl1.SelectedTab.Text);
+                SqlDataReader reader = command.ExecuteReader();
+                chatBox.Text = "";
+                while (reader.Read()) chatBox.Text += $"{reader[0]}» {reader[1]}\n";
+            }
 
         }
 
@@ -75,13 +78,13 @@ namespace WinFormsApp1
             {
                 string query = "insert into Messages values " +
                     "((Select Id from Users where Nickname = @Nickname)," +
-                    "@MessageText,@SentTime,(Select Id from Chats where Chat._name = @ChatName))";
+                    "@MessageText,@SentTime,(Select Id from Chats where Chats._name = @ChatName))";
                 connection.Open();
                 SqlCommand command = new(query, connection);
                 command.Parameters.AddWithValue("Nickname", UsernameTextBox.Text);
                 command.Parameters.AddWithValue("MessageText", messageBox.Text);
                 command.Parameters.AddWithValue("SentTime", DateTime.Now);
-                command.Parameters.AddWithValue("ChatName", tabControl1.SelectedTab.Name);
+                command.Parameters.AddWithValue("ChatName", tabControl1.SelectedTab.Text);
                 command.ExecuteNonQuery();
             }
             messageBox.Text = "";
@@ -118,6 +121,11 @@ namespace WinFormsApp1
         private void ChatForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             UpdateUserStatus(UsernameTextBox.Text, "Offline");
+        }
+
+        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            LoadChat();
         }
     }
 }
