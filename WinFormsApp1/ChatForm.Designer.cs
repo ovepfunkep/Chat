@@ -28,14 +28,11 @@ namespace WinFormsApp1
             this.loadChatBt = new System.Windows.Forms.Button();
             this.sendMessageBt = new System.Windows.Forms.Button();
             this.messageBox = new System.Windows.Forms.RichTextBox();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.timerLoadChat = new System.Windows.Forms.Timer(this.components);
             this.UsernameTextBox = new System.Windows.Forms.TextBox();
             this.logoutButton = new System.Windows.Forms.Button();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPageFlood = new System.Windows.Forms.TabPage();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.tabControl1.SuspendLayout();
+            this.buttonSH = new System.Windows.Forms.Button();
+            this.richTextBoxUsers = new System.Windows.Forms.RichTextBox();
             this.SuspendLayout();
             // 
             // chatBox
@@ -44,11 +41,11 @@ namespace WinFormsApp1
             this.chatBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.chatBox.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.chatBox.HideSelection = false;
-            this.chatBox.Location = new System.Drawing.Point(58, 99);
+            this.chatBox.Location = new System.Drawing.Point(58, 65);
             this.chatBox.Name = "chatBox";
             this.chatBox.ReadOnly = true;
             this.chatBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
-            this.chatBox.Size = new System.Drawing.Size(439, 468);
+            this.chatBox.Size = new System.Drawing.Size(439, 502);
             this.chatBox.TabIndex = 1;
             this.chatBox.Text = "";
             // 
@@ -96,10 +93,10 @@ namespace WinFormsApp1
             this.messageBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.messageBox_KeyPress);
             this.messageBox.Leave += new System.EventHandler(this.messageBox_Leave);
             // 
-            // timer1
+            // timerLoadChat
             // 
-            this.timer1.Interval = 2000;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            this.timerLoadChat.Interval = 2000;
+            this.timerLoadChat.Tick += new System.EventHandler(this.timerLoadChat_Tick);
             // 
             // UsernameTextBox
             // 
@@ -127,47 +124,25 @@ namespace WinFormsApp1
             this.logoutButton.UseVisualStyleBackColor = false;
             this.logoutButton.Click += new System.EventHandler(this.logoutButton_Click);
             // 
-            // tabControl1
+            // buttonSH
             // 
-            this.tabControl1.Controls.Add(this.tabPageFlood);
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.tabControl1.Location = new System.Drawing.Point(58, 62);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(440, 31);
-            this.tabControl1.TabIndex = 9;
-            this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
+            this.buttonSH.Location = new System.Drawing.Point(376, 36);
+            this.buttonSH.Name = "buttonSH";
+            this.buttonSH.Size = new System.Drawing.Size(121, 23);
+            this.buttonSH.TabIndex = 10;
+            this.buttonSH.Text = "show/hide users";
+            this.buttonSH.UseVisualStyleBackColor = true;
+            this.buttonSH.Click += new System.EventHandler(this.buttonSH_Click);
             // 
-            // tabPageFlood
+            // richTextBoxUsers
             // 
-            this.tabPageFlood.Location = new System.Drawing.Point(4, 34);
-            this.tabPageFlood.Name = "tabPageFlood";
-            this.tabPageFlood.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageFlood.Size = new System.Drawing.Size(432, 0);
-            this.tabPageFlood.TabIndex = 0;
-            this.tabPageFlood.Text = "Flood";
-            this.tabPageFlood.UseVisualStyleBackColor = true;
-            // 
-            // tabPage2
-            // 
-            this.tabPage2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.tabPage2.Location = new System.Drawing.Point(4, 34);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(432, 0);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "tabPage2";
-            this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // comboBox1
-            // 
-            this.comboBox1.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(377, 20);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 33);
-            this.comboBox1.TabIndex = 11;
+            this.richTextBoxUsers.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.richTextBoxUsers.Location = new System.Drawing.Point(376, 65);
+            this.richTextBoxUsers.Name = "richTextBoxUsers";
+            this.richTextBoxUsers.Size = new System.Drawing.Size(123, 504);
+            this.richTextBoxUsers.TabIndex = 11;
+            this.richTextBoxUsers.Text = "";
+            this.richTextBoxUsers.Visible = false;
             // 
             // ChatForm
             // 
@@ -175,9 +150,9 @@ namespace WinFormsApp1
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.ClientSize = new System.Drawing.Size(584, 661);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.richTextBoxUsers);
+            this.Controls.Add(this.buttonSH);
             this.Controls.Add(this.chatBox);
-            this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.logoutButton);
             this.Controls.Add(this.UsernameTextBox);
             this.Controls.Add(this.messageBox);
@@ -186,7 +161,6 @@ namespace WinFormsApp1
             this.Name = "ChatForm";
             this.Text = "MyChat";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ChatForm_FormClosed);
-            this.tabControl1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -197,13 +171,11 @@ namespace WinFormsApp1
         public System.Windows.Forms.Button loadChatBt;
         public System.Windows.Forms.RichTextBox messageBox;
         public System.Windows.Forms.Button sendMessageBt;
-        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Timer timerLoadChat;
         public System.Windows.Forms.TextBox UsernameTextBox;
         private System.Windows.Forms.Button logoutButton;
-        private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage tabPageFlood;
-        private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.Button buttonSH;
+        private System.Windows.Forms.RichTextBox richTextBoxUsers;
     }
 }
 

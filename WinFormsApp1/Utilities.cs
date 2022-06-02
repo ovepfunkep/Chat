@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Data.SqlClient;
 
 namespace WinFormsApp1
@@ -39,6 +36,23 @@ namespace WinFormsApp1
                     command.Parameters.AddWithValue("Nickname", user);
                     SqlDataReader reader = command.ExecuteReader();
                     return reader.Read().ToString();
+                }
+            }
+
+            public static List<string> getListUsers(string status = "all")
+            {
+                using (SqlConnection connection = new(connectionString))
+                {
+                    string query = "SELECT Nickname from Users inner join Statuses on Statuses.Id = StatusId where _name = @status";
+                    connection.Open();
+                    SqlCommand command = new(query, connection);
+                    if (status == "all") command.Parameters.AddWithValue("status", "online or _name = offline");
+                    else command.Parameters.AddWithValue("status", status);
+                    SqlDataReader reader = command.ExecuteReader();
+                    List<string> list = new List<string>(100);
+                    while (reader.Read())
+                        list.Add(reader[0].ToString());
+                    return list;
                 }
             }
         }

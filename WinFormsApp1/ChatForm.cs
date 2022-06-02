@@ -1,14 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.IO;
-using System.Text.RegularExpressions;
 using static WinFormsApp1.Utilities;
 using static WinFormsApp1.Utilities.Methods;
 using System.Data.SqlClient;
@@ -28,10 +20,10 @@ namespace WinFormsApp1
         {
             using (SqlConnection connection = new(connectionString))
             {
-                string query = "Select Users.Nickname,MessageText from Messages inner join Users on Users.Id = Messages.UserId inner join Chats on Chats.Id = Messages.ChatId where Chats.Id = (Select Id from Chats where Chats._name = @ChatName)";
+                string query = "Select Users.Nickname,MessageText from Messages inner join Users on Users.Id = Messages.UserId inner join Chats on Chats.Id = Messages.ChatId where Chats.Id = (Select Id from Chats where Chats._name = @ChatName) order by SentTime";
                 connection.Open();
                 SqlCommand command = new(query, connection);
-                command.Parameters.AddWithValue("ChatName", tabControl1.SelectedTab.Text);
+                command.Parameters.AddWithValue("ChatName", "Flood");
                 SqlDataReader reader = command.ExecuteReader();
                 chatBox.Text = "";
                 while (reader.Read()) chatBox.Text += $"{reader[0]}» {reader[1]}\n";
@@ -46,7 +38,7 @@ namespace WinFormsApp1
                 UsernameTextBox.Text = username;
                 messageBox.Text = "You are not authorised to send messages";
                 messageBox.ReadOnly = true;
-                timer1.Enabled = false;
+                timerLoadChat.Enabled = false;
                 sendMessageBt.Enabled = false;
                 loadChatBt.Enabled = false;
             }
@@ -55,7 +47,7 @@ namespace WinFormsApp1
                 UsernameTextBox.Text = username;
                 messageBox.Text = "Enter your message";
                 messageBox.ReadOnly = false;
-                timer1.Enabled = true;
+                timerLoadChat.Enabled = true;
                 sendMessageBt.Enabled = true;
                 loadChatBt.Enabled = true;
             }
@@ -68,11 +60,6 @@ namespace WinFormsApp1
 
         private void SendMessageBt_Click(object sender, EventArgs e)
         {
-            if (tabControl1.SelectedIndex == tabControl1.TabCount - 1)
-            {
-                MessageBox.Show("You can't send messages here");
-                return;
-            }
             chatBox.Text = "";
             using (SqlConnection connection = new(connectionString))
             {
@@ -84,7 +71,7 @@ namespace WinFormsApp1
                 command.Parameters.AddWithValue("Nickname", UsernameTextBox.Text);
                 command.Parameters.AddWithValue("MessageText", messageBox.Text);
                 command.Parameters.AddWithValue("SentTime", DateTime.Now);
-                command.Parameters.AddWithValue("ChatName", tabControl1.SelectedTab.Text);
+                command.Parameters.AddWithValue("ChatName", "Flood");
                 command.ExecuteNonQuery();
             }
             messageBox.Text = "";
@@ -113,17 +100,30 @@ namespace WinFormsApp1
             new LoginForm(this).ShowDialog();
         }
 
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-            LoadChat();
-        }
-
         private void ChatForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             UpdateUserStatus(UsernameTextBox.Text, "Offline");
         }
 
-        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        private void buttonSH_Click(object sender, EventArgs e)
+        {
+            if (richTextBoxUsers.Visible == false)
+            {
+                richTextBoxUsers.Visible = true;
+                richTextBoxUsers.Clear();
+                richTextBoxUsers.Text += "==Online==\n";
+                List<String> list = getListUsers("online");
+                foreach (string value in list)
+                    richTextBoxUsers.Text += $"{value}\n";
+                richTextBoxUsers.Text += "==Offline==\n";
+                list = getListUsers("offline");
+                foreach (string value in list)
+                    richTextBoxUsers.Text += $"{value}\n";
+            }
+            else richTextBoxUsers.Visible = false;
+        }
+
+        private void timerLoadChat_Tick(object sender, EventArgs e)
         {
             LoadChat();
         }
